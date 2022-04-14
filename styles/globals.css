@@ -1,9 +1,13 @@
+@import url("https://use.typekit.net/kgg7ybw.css");
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: lores-12-narrow, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background-color: black;
+  cursor: url('/images/png/bgcursor.png'), auto;
 }
 
 a {
@@ -13,4 +17,12 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+::selection {
+  background: #5C2218;
+}
+
+img {
+  user-select: none;
 }
