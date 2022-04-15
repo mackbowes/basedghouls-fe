@@ -3,9 +3,9 @@ import { InjectedProviderFC } from "../contexts/InjectedProviderContext";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <InjectedProviderFC>
-      <Component {...pageProps} />
-    </InjectedProviderFC>
+      <InjectedProviderFC>
+        <Component {...pageProps} />
+      </InjectedProviderFC>
   );
 }
 

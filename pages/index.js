@@ -8,6 +8,7 @@ const AnimBox = chakra(motion.div, {
   shouldForwardProp: isValidMotionProp,
 });
 
+
 export default function Home() {
   const [stateIndex, setStateIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +29,6 @@ export default function Home() {
   const mint = async () => {
     const transaction = contract?.methods?.mint(basedStatusProof);
     const txResponse = await transaction.send("eth_requestAccounts");
-    alert("MINTING");
   };
 
   async function getBasedStatus(addressToCheck) {
@@ -104,14 +104,19 @@ export default function Home() {
       {stateIndex === 0 && (
         <>
           <Box
-            sx={{ position: `absolute`, top: `50%`, left: `50%` }}
+            sx={{
+              position: `absolute`,
+              top: `50%`,
+              left: `50%`,
+              transform: `translateX(-50%) translateY(-50%)`,
+            }}
             _hover={{ cursor: `url(images/png/cursorhover.png), auto` }}
             onClick={() => connectProvider()}
           >
             <img
               src="/images/svg/tome.svg"
               alt=""
-              style={{ backgroundColor: `transparent`, maxWidth: `9rem` }}
+              style={{ backgroundColor: `transparent`, width: `5vw`, zIndex: `5` }}
               draggable="false"
             />
           </Box>
@@ -119,149 +124,177 @@ export default function Home() {
       )}
       {stateIndex === 1 && (
         <>
-          <img
-            src="/images/svg/UPDATEDbackground.svg"
-            alt=""
-            style={{ maxWidth: `100%`, position: `absolute` }}
-            draggable="false"
-          />
-          <img
-            src="/images/svg/UPDATEDTitle.svg"
-            alt=""
-            style={{
-              position: `absolute`,
-              left: `50%`,
-              transform: `translateX(-50%)`,
-              top: `2rem`,
-              backgroundColor: `transparent`,
-            }}
-            draggable="false"
-          />
-          <Box
-            sx={{
-              position: `absolute`,
-              display: `flex`,
-              alignItems: `center`,
-              gap: `2rem`,
-              left: `2rem`,
-              top: `2rem`,
-            }}
-          >
-            <Box
-              sx={{
-                opacity: `0.75`,
-                transition: `0.25s`,
-              }}
-              _hover={{
-                opacity: `1`,
-                cursor: `url(images/png/cursorhover.png), auto`,
-              }}
-            >
-              <img
-                src="/images/svg/UPDATEDtelegram.svg"
-                alt=""
-                style={{ backgroundColor: `transparent` }}
-                draggable="false"
-              />
-            </Box>
-            <Box
-              sx={{
-                opacity: `0.75`,
-                transition: `0.25s`,
-              }}
-              _hover={{
-                opacity: `1`,
-                cursor: `url(images/png/cursorhover.png), auto`,
-              }}
-            >
-              <img
-                src="/images/svg/UPDATEDdiscord.svg"
-                alt=""
-                style={{ backgroundColor: `transparent` }}
-                draggable="false"
-              />
-            </Box>
-            <Box
-              sx={{
-                opacity: `0.75`,
-                transition: `0.25s`,
-              }}
-              _hover={{
-                opacity: `1`,
-                cursor: `url(images/png/cursorhover.png), auto`,
-              }}
-            >
-              <img
-                src="/images/svg/UPDATEDtwitter.svg"
-                alt=""
-                style={{ backgroundColor: `transparent` }}
-                draggable="false"
-              />
-            </Box>
-            <Box
-              sx={{
-                opacity: `0.75`,
-                transition: `0.25s`,
-              }}
-              _hover={{
-                opacity: `1`,
-                cursor: `url(images/png/cursorhover.png), auto`,
-              }}
-            >
-              <img
-                src="/images/svg/UPDATEDlooks.svg"
-                alt=""
-                style={{ backgroundColor: `transparent` }}
-                draggable="false"
-              />
-            </Box>
-          </Box>
-          <Box
-            sx={{
-              position: `absolute`,
-              right: `2.5%`,
-              transform: `translateX(-2.5%)`,
-              top: `2rem`,
-              opacity: `0.75`,
-              transition: `0.25s`,
-              display: `flex`,
-              gap: `2rem`,
-            }}
-            _hover={{
-              opacity: `1`,
-              cursor: `url(images/png/cursorhover.png), auto`,
-            }}
-            onClick={() => disconnectDapp()}
-          >
-            <Text sx={{ color: `white` }}>{shortAddress}</Text>
-            <img
-              src="/images/svg/tome.svg"
-              alt=""
-              style={{ backgroundColor: `transparent`, maxWidth: `4rem` }}
-              draggable="false"
-            />
-          </Box>
           <Box
             sx={{
               position: `absolute`,
               left: `50%`,
-              top: `65vh`,
-              transform: `translateX(-50%)`,
-              opacity: `0.75`,
-              transition: `0.25s`,
-            }}
-            _hover={{
-              opacity: `1`,
-              cursor: `url(images/png/cursorhover.png), auto`,
+              top: `50%`,
+              width: `100%`,
+              height: `100%`,
+              maxWidth: `1920px`,
+              maxHeight: `1080px`,
+              transform: `translateX(-50%) translateY(-50%)`,
             }}
           >
             <img
-              src="/images/svg/flame.svg"
+              src="/images/svg/vignettebg.svg"
               alt=""
-              style={{ backgroundColor: `transparent`, maxWidth: `4rem` }}
+              style={{ width: `100%`, position: `absolute` }}
               draggable="false"
-              onClick={() => setIsModalOpen(true)}
             />
+            <img
+              src="/images/svg/UPDATEDTitle.svg"
+              alt=""
+              style={{
+                position: `absolute`,
+                left: `50%`,
+                transform: `translateX(-50%)`,
+                top: `2rem`,
+                backgroundColor: `transparent`,
+              }}
+              draggable="false"
+            />
+            <Box
+              sx={{
+                position: `absolute`,
+                display: `flex`,
+                alignItems: `center`,
+                gap: `2rem`,
+                left: `2rem`,
+                top: `2rem`,
+              }}
+            >
+              <Box
+                sx={{
+                  opacity: `0.75`,
+                  transition: `0.25s`,
+                }}
+                _hover={{
+                  opacity: `1`,
+                  cursor: `url(images/png/cursorhover.png), auto`,
+                }}
+              >
+                <a
+                  href="https://t.me/basedghouls"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{cursor: `url(images/png/cursorhover.png), auto`,}}
+                >
+                  <img
+                    src="/images/svg/UPDATEDtelegram.svg"
+                    alt=""
+                    style={{ backgroundColor: `transparent` }}
+                    draggable="false"
+                  />
+                </a>
+              </Box>
+
+              <Box
+                sx={{
+                  opacity: `0.75`,
+                  transition: `0.25s`,
+                }}
+                _hover={{
+                  opacity: `1`,
+                  cursor: `url(images/png/cursorhover.png), auto`,
+                }}
+              >
+                <a
+                  href="https://twitter.com/BASEDghouls"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{cursor: `url(images/png/cursorhover.png), auto`,}}
+                >
+                  <img
+                    src="/images/svg/UPDATEDtwitter.svg"
+                    alt=""
+                    style={{ backgroundColor: `transparent` }}
+                    draggable="false"
+                  />
+                </a>
+              </Box>
+              <Box
+                sx={{
+                  opacity: `0.75`,
+                  transition: `0.25s`,
+                }}
+                _hover={{
+                  opacity: `1`,
+                  cursor: `url(images/png/cursorhover.png), auto`,
+                }}
+              >
+                <img
+                  src="/images/svg/opensea.svg"
+                  alt=""
+                  style={{ backgroundColor: `transparent` }}
+                  draggable="false"
+                />
+              </Box>
+              <Box
+                sx={{
+                  opacity: `0.75`,
+                  transition: `0.25s`,
+                }}
+                _hover={{
+                  opacity: `1`,
+                  cursor: `url(images/png/cursorhover.png), auto`,
+                }}
+              >
+                <img
+                  src="/images/svg/UPDATEDlooks.svg"
+                  alt=""
+                  style={{ backgroundColor: `transparent` }}
+                  draggable="false"
+                />
+              </Box>
+            </Box>
+            <Box
+              sx={{
+                position: `absolute`,
+                right: `2.5%`,
+                transform: `translateX(-2.5%)`,
+                top: `2rem`,
+                opacity: `0.75`,
+                transition: `0.25s`,
+                display: `flex`,
+                gap: `2rem`,
+              }}
+              _hover={{
+                opacity: `1`,
+                cursor: `url(images/png/cursorhover.png), auto`,
+              }}
+              onClick={() => disconnectDapp()}
+            >
+              <Text sx={{ color: `white` }}>{shortAddress}</Text>
+              <img
+                src="/images/svg/tome.svg"
+                alt=""
+                style={{ backgroundColor: `transparent`, maxWidth: `4rem` }}
+                draggable="false"
+              />
+            </Box>
+            <Box
+              sx={{
+                position: `absolute`,
+                left: `50%`,
+                top: `55%`,
+                transform: `translateX(-50%)`,
+                opacity: `0.75`,
+                transition: `0.25s`,
+              }}
+              _hover={{
+                opacity: `1`,
+                cursor: `url(images/png/cursorhover.png), auto`,
+              }}
+            >
+              <img
+                src="/images/svg/flame.svg"
+                alt=""
+                style={{ backgroundColor: `transparent`, width: `5rem` }}
+                draggable="false"
+                onClick={() => setIsModalOpen(true)}
+              />
+            </Box>
           </Box>
         </>
       )}
@@ -303,7 +336,7 @@ export default function Home() {
                   position: `absolute`,
                   top: `0`,
                   left: `0`,
-                  zIndex: `2`,
+                  zIndex: `1`,
                 }}
               >
                 <img
@@ -331,64 +364,65 @@ export default function Home() {
                   style={{ backgroundColor: `transparent`, width: `100%` }}
                 />
               </Box>
-            </Box>
-            <Box
-              sx={{
-                position: `absolute`,
-                left: `50%`,
-                bottom: `25%`,
-                transform: `translateX(-50%)`,
-                transition: `0.25s`,
-                width: `60%`,
-              }}
-            >
-              <Box>
-                <img
-                  src="/images/svg/textbox_top_left.svg"
-                  alt=""
-                  style={{ position: `fixed`, left: `0`, top: `2rem` }}
-                  draggable="false"
-                />
-                <Text
-                  sx={{
-                    position: `fixed`,
-                    top: `.8ex`,
-                    left: `2rem`,
-                    backgroundColor: `transparent`,
-                    outline: `none`,
-                    border: `none`,
-                    width: `10em`,
-                    fontSize: `2em`,
-                    fontFamily: `lores-12-narrow, monospace`,
-                    color: `#a0958a`,
-                  }}
-                >
-                  are you based? {isBased ? "yes" : "no"}
-                </Text>
-              </Box>
-              <Box>
-                <img
-                  src="/images/svg/textbox_top_right.svg"
-                  alt=""
-                  style={{ position: `fixed`, right: `0`, top: `2rem` }}
-                  draggable="false"
-                />
-                <Text
-                  sx={{
-                    position: `fixed`,
-                    top: `.8ex`,
-                    right: `0em`,
-                    backgroundColor: `transparent`,
-                    outline: `none`,
-                    border: `none`,
-                    width: `12em`,
-                    fontSize: `2em`,
-                    fontFamily: `lores-12-narrow, monospace`,
-                    color: `#a0958a`,
-                  }}
-                >
-                  ghouls raised: {totalSupply} / 6666
-                </Text>
+              <Box
+                sx={{
+                  position: `absolute`,
+                  left: `50%`,
+                  bottom: `25%`,
+                  transform: `translateX(-50%)`,
+                  transition: `0.25s`,
+                  width: `100%`,
+                  zIndex: `3`
+                }}
+              >
+                <Box>
+                  <img
+                    src="/images/svg/textbox_top_left.svg"
+                    alt=""
+                    style={{ position: `fixed`, left: `2rem`, top: `2rem`, }}
+                    draggable="false"
+                  />
+                  <Text
+                    sx={{
+                      position: `fixed`,
+                      top: `.8ex`,
+                      left: `4rem`,
+                      backgroundColor: `transparent`,
+                      outline: `none`,
+                      border: `none`,
+                      width: `10em`,
+                      fontSize: `2em`,
+                      fontFamily: `lores-12-narrow, monospace`,
+                      color: `#a0958a`,
+                    }}
+                  >
+                    are you based? {isBased ? "yes" : "no"}
+                  </Text>
+                </Box>
+                <Box>
+                  <img
+                    src="/images/svg/textbox_top_right.svg"
+                    alt=""
+                    style={{ position: `fixed`, right: `2rem`, top: `2rem` }}
+                    draggable="false"
+                  />
+                  <Text
+                    sx={{
+                      position: `fixed`,
+                      top: `.8ex`,
+                      right: `0em`,
+                      backgroundColor: `transparent`,
+                      outline: `none`,
+                      border: `none`,
+                      width: `12em`,
+                      fontSize: `2em`,
+                      fontFamily: `lores-12-narrow, monospace`,
+                      color: `#a0958a`,
+                    }}
+                  >
+                    ghouls raised: {totalSupply} / 6666
+                  </Text>
+                </Box>
               </Box>
             </Box>
           </Box>
