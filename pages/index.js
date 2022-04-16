@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, chakra, Box, Input, Text } from "@chakra-ui/react";
+import { Container, chakra, Box, Input, Text, Heading } from "@chakra-ui/react";
 import { motion, isValidMotionProp } from "framer-motion";
 import { useInjectedProvider } from "../contexts/InjectedProviderContext";
 import { BGContract } from "../utils/contract";
@@ -8,10 +8,13 @@ const AnimBox = chakra(motion.div, {
   shouldForwardProp: isValidMotionProp,
 });
 
-
 export default function Home() {
   const [stateIndex, setStateIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTransacting, setIsTransacting] = useState(false);
+  const [isSummoned, setIsSummoned] = useState(true);
+  const [summonedNFT, setSummonedNFT] = useState();
+  const [isFailed, setIsFailed] = useState(false);
   const [shortAddress, setShortAddress] = useState("");
   const [isBased, setIsBased] = useState(false);
   const [basedStatusProof, setBasedStatusProof] = useState("");
@@ -26,9 +29,27 @@ export default function Home() {
     injectedProvider,
   } = useInjectedProvider();
 
+
+
   const mint = async () => {
     const transaction = contract?.methods?.mint(basedStatusProof);
-    const txResponse = await transaction.send("eth_requestAccounts");
+    const txResponse = await transaction
+      .send("eth_requestAccounts")
+      .once("transactionHash", () => {
+        setIsModalOpen(false);
+        setIsTransacting(true);
+      })
+      .once("confirmation", async () => {
+        setIsTransacting(false);
+        // Get NFT at Address
+
+        setIsSummoned(true);
+      })
+      .once("error", (error) => {
+        setIsTransacting(false);
+        console.log(error);
+        setIsFailed(true);
+      });
   };
 
   async function getBasedStatus(addressToCheck) {
@@ -80,6 +101,16 @@ export default function Home() {
   }, [contract]);
 
   useEffect(() => {
+    if (typeof contract !== "undefined" && typeof address !== "undefined") {
+    const getNFTArray = async () => {
+      const NFTArray = await contract.methods.balanceOf(address).call();
+      console.log({NFTArray});
+      } 
+      getNFTArray();
+    }
+  },[contract, address])
+
+  useEffect(() => {
     if (address !== null) {
       setStateIndex(1);
     } else {
@@ -116,7 +147,11 @@ export default function Home() {
             <img
               src="/images/svg/tome.svg"
               alt=""
-              style={{ backgroundColor: `transparent`, width: `5vw`, zIndex: `5` }}
+              style={{
+                backgroundColor: `transparent`,
+                width: `5vw`,
+                zIndex: `5`,
+              }}
               draggable="false"
             />
           </Box>
@@ -178,7 +213,7 @@ export default function Home() {
                   href="https://t.me/basedghouls"
                   target="_blank"
                   rel="noreferrer"
-                  style={{cursor: `url(images/png/cursorhover.png), auto`,}}
+                  style={{ cursor: `url(images/png/cursorhover.png), auto` }}
                 >
                   <img
                     src="/images/svg/UPDATEDtelegram.svg"
@@ -188,7 +223,6 @@ export default function Home() {
                   />
                 </a>
               </Box>
-
               <Box
                 sx={{
                   opacity: `0.75`,
@@ -203,7 +237,7 @@ export default function Home() {
                   href="https://twitter.com/BASEDghouls"
                   target="_blank"
                   rel="noreferrer"
-                  style={{cursor: `url(images/png/cursorhover.png), auto`,}}
+                  style={{ cursor: `url(images/png/cursorhover.png), auto` }}
                 >
                   <img
                     src="/images/svg/UPDATEDtwitter.svg"
@@ -372,14 +406,14 @@ export default function Home() {
                   transform: `translateX(-50%)`,
                   transition: `0.25s`,
                   width: `100%`,
-                  zIndex: `3`
+                  zIndex: `3`,
                 }}
               >
                 <Box>
                   <img
                     src="/images/svg/textbox_top_left.svg"
                     alt=""
-                    style={{ position: `fixed`, left: `2rem`, top: `2rem`, }}
+                    style={{ position: `fixed`, left: `2rem`, top: `2rem` }}
                     draggable="false"
                   />
                   <Text
@@ -424,6 +458,107 @@ export default function Home() {
                   </Text>
                 </Box>
               </Box>
+            </Box>
+          </Box>
+        </>
+      )}
+      {isTransacting && (
+        <>
+          <Box
+            sx={{
+              position: `absolute`,
+              left: `50%`,
+              top: `15rem`,
+              transform: `translateX(-50%)`,
+            }}
+          >
+            <img src="/images/burntheykey.gif" alt="" draggable="false" />
+          </Box>
+        </>
+      )}
+      {isSummoned && (
+        <>
+          <Box>
+            <Box
+              sx={{
+                position: `fixed`,
+                left: `0`,
+                top: `0`,
+                backgroundColor: `rgba(0,0,0,0.7)`,
+                width: `100%`,
+                height: `100vh`,
+              }}
+              _hover={{
+                cursor: `url(images/png/cursorhover.png), auto`,
+              }}
+              onClick={() => setIsSummoned(false)}
+            >
+              <Box
+                sx={{
+                  position: `absolute`,
+                  left: `50%`,
+                  top: `15rem`,
+                  transform: `translateX(-50%)`,
+                  width: `750px`,
+                  padding: `2ex 1em`,
+                  backgroundColor: `#e0e0e0`,
+                  display: `flex`,
+                  flexDirection: `column`,
+                  alignItems: `center`,
+                }}
+              >
+                <Heading sx={{ lineHeight: `1`, margin: `1ex` }}>
+                  Summon Successful
+                </Heading>
+                {summonedNFT && (
+                  <img
+                    src={summonedNFT.source}
+                    alt={`Based Ghoul #${summonedNFT.index}`}
+                  />
+                )}
+                <Box
+                  sx={{
+                    display: `block`,
+                    border: `2px solid #333`,
+                    padding: `1ex 1em`,
+                    width: `fit-content`,
+                  }}
+                  onClick={() => setIsFailed(false)}
+                >
+                  Close
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </>
+      )}
+      {isFailed && (
+        <>
+          <Box
+            sx={{
+              position: `absolute`,
+              left: `50%`,
+              top: `15rem`,
+              transform: `translateX(-50%)`,
+              width: `750px`,
+              padding: `2ex 1em`,
+              backgroundColor: `#e0e0e0`,
+              display: `flex`,
+              flexDirection: `column`,
+              alignItems: `center`,
+            }}
+          >
+            <Heading>Summon Failed</Heading>
+            <Box
+              sx={{
+                display: `block`,
+                border: `2px solid #333`,
+                padding: `1ex 1em`,
+                width: `fit-content`,
+              }}
+              onClick={() => setIsFailed(false)}
+            >
+              Close
             </Box>
           </Box>
         </>
