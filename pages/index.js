@@ -12,8 +12,8 @@ export default function Home() {
   const [stateIndex, setStateIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransacting, setIsTransacting] = useState(false);
-  const [isSummoned, setIsSummoned] = useState(true);
-  const [summonedNFT, setSummonedNFT] = useState();
+  const [isSummoned, setIsSummoned] = useState(false);
+  const [summonedNFT, setSummonedNFT] = useState({});
   const [isFailed, setIsFailed] = useState(false);
   const [shortAddress, setShortAddress] = useState("");
   const [isBased, setIsBased] = useState(false);
@@ -35,20 +35,22 @@ export default function Home() {
     const transaction = contract?.methods?.mint(basedStatusProof);
     const txResponse = await transaction
       .send("eth_requestAccounts")
-      .once("transactionHash", () => {
+      .once("transactionHash", (hash) => {
+        console.log({hash});
         setIsModalOpen(false);
         setIsTransacting(true);
       })
       .once("confirmation", async () => {
         setIsTransacting(false);
-        // Get NFT at Address
-
         setIsSummoned(true);
       })
       .once("error", (error) => {
         setIsTransacting(false);
         console.log(error);
         setIsFailed(true);
+      }).then(async (receipt) => {
+        const tokenID = receipt?.events?.Transfer?.returnValues?.tokenId;
+        setSummonedNFT({source:`https://ghlstest.s3.us-east-1.amazonaws.com/images/${tokenID}.png`, index: tokenID});
       });
   };
 
@@ -507,14 +509,16 @@ export default function Home() {
                   alignItems: `center`,
                 }}
               >
-                <Heading sx={{ lineHeight: `1`, margin: `1ex` }}>
+                <Heading sx={{ lineHeight: `1`, margin: `1ex`, fontSize: `48px` }}>
                   Summon Successful
                 </Heading>
                 {summonedNFT && (
+                  <Box sx={{padding: `2ex 2em`}}>
                   <img
-                    src={summonedNFT.source}
-                    alt={`Based Ghoul #${summonedNFT.index}`}
+                    src={summonedNFT?.source}
+                    alt={`Based Ghoul #${summonedNFT?.index}`}
                   />
+                  </Box>
                 )}
                 <Box
                   sx={{
