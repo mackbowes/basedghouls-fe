@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
-import { Container, chakra, Box, Input, Text, Heading, keyframes } from "@chakra-ui/react";
+import {
+  Container,
+  chakra,
+  Box,
+  Input,
+  Text,
+  Heading,
+  keyframes,
+} from "@chakra-ui/react";
 import { motion, isValidMotionProp } from "framer-motion";
 import { useInjectedProvider } from "../contexts/InjectedProviderContext";
 import { BGContract } from "../utils/contract";
@@ -29,14 +37,12 @@ export default function Home() {
     injectedProvider,
   } = useInjectedProvider();
 
-
-
   const mint = async () => {
     const transaction = contract?.methods?.mint(basedStatusProof);
     const txResponse = await transaction
       .send("eth_requestAccounts")
       .once("transactionHash", (hash) => {
-        console.log({hash});
+        console.log({ hash });
         setIsModalOpen(false);
         setIsTransacting(true);
       })
@@ -48,9 +54,13 @@ export default function Home() {
         setIsTransacting(false);
         console.log(error);
         setIsFailed(true);
-      }).then(async (receipt) => {
+      })
+      .then(async (receipt) => {
         const tokenID = receipt?.events?.Transfer?.returnValues?.tokenId;
-        setSummonedNFT({source:`https://ghlsprereveal.s3.amazonaws.com/images/Shallow_Grave.png`, index: tokenID});
+        setSummonedNFT({
+          source: `https://ghlsprereveal.s3.amazonaws.com/images/Shallow_Grave.png`,
+          index: tokenID,
+        });
       });
   };
 
@@ -68,7 +78,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    console.log({address}); 
+    console.log({ address });
     if (address !== null) {
       setStateIndex(1);
       let addyString = address.toString();
@@ -104,16 +114,16 @@ export default function Home() {
 
   useEffect(() => {
     if (typeof contract !== "undefined" && typeof address !== "undefined") {
-    const getNFTArray = async () => {
-      const NFTArray = await contract.methods.balanceOf(address).call();
-      console.log({NFTArray});
-      } 
+      const getNFTArray = async () => {
+        const NFTArray = await contract.methods.balanceOf(address).call();
+        console.log({ NFTArray });
+      };
       getNFTArray();
     }
-  },[contract, address])
+  }, [contract, address]);
 
   useEffect(() => {
-    console.log({address}); 
+    console.log({ address });
     if (address !== null) {
       setStateIndex(1);
     } else {
@@ -134,20 +144,27 @@ export default function Home() {
   };
 
   const glowKeyframes = keyframes`
-  0% { transform: scale(1) rotate(0); border-radius: 20%; }
-  25% { transform: scale(2) rotate(0); border-radius: 20%; }
-  50% { transform: scale(2) rotate(270deg); border-radius: 50%; }
-  75% { transform: scale(1) rotate(270deg); border-radius: 50%; }
-  100% { transform: scale(1) rotate(0); border-radius: 20%; }
+  0% { opacity: 0.125; }
+  50% { opacity: 1; }
+  100% { opacity: 0.125; }
 `;
 
+  const bobKeyframes = keyframes`
+ 0% { transform: translateX(-50%) translateY(-15px);}
+ 50% { transform: translateX(-50%) translateY(0);}
+ 100% { transform: translateX(-50%) translateY(-15px);}
+ `;
+
   const glowAnimation = `${glowKeyframes} 2s ease-in-out infinite`;
+  const bobAnimation = `${bobKeyframes} 2s ease-in-out infinite`;
 
   return (
     <Box sx={{ backgroundColor: `black`, height: `100vh`, overflow: `hidden` }}>
       {stateIndex === 0 && (
         <>
           <Box
+          as={motion.div}
+          animation={bobAnimation}
             sx={{
               position: `absolute`,
               top: `50%`,
@@ -199,7 +216,7 @@ export default function Home() {
                 transform: `translateX(-50%)`,
                 top: `2rem`,
                 backgroundColor: `transparent`,
-                width: `30vw`
+                width: `30vw`,
               }}
               draggable="false"
             />
@@ -272,7 +289,7 @@ export default function Home() {
                 }}
               >
                 <img
-                  src="/images/svg/opensea.svg"
+                  src="/images/svg/UPDATEDopensea.svg"
                   alt=""
                   style={{ backgroundColor: `transparent` }}
                   draggable="false"
@@ -322,13 +339,27 @@ export default function Home() {
               />
             </Box>
             <Box
+              as={motion.div}
+              animation={glowAnimation}
+              className={"glowFlame"}
               sx={{
                 position: `absolute`,
-                left: `50%`,
-                top: `27vw`,
-                transform: `translateX(-50%)`,
+                opacity: `0.75`,
+                transition: `0.5s`,
+                width: `400px`
+              }}
+            >
+              <img src="/images/svg/glow.svg" alt="" />
+            </Box>
+            <Box
+            as={motion.div}
+            animation={bobAnimation}
+            className={"glowRock"}
+              sx={{
+                position: `absolute`,
                 opacity: `0.75`,
                 transition: `0.25s`,
+                transform: `translateX(-50%)`,
               }}
               _hover={{
                 opacity: `1`,
@@ -380,6 +411,8 @@ export default function Home() {
                 draggable="false"
               />
               <Box
+              as={motion.div}
+              animation={glowAnimation}
                 sx={{
                   position: `absolute`,
                   top: `0`,
@@ -433,7 +466,7 @@ export default function Home() {
                   <Text
                     sx={{
                       position: `fixed`,
-                      top: `.8ex`,
+                      top: `2.4ex`,
                       left: `4rem`,
                       backgroundColor: `transparent`,
                       outline: `none`,
@@ -457,7 +490,7 @@ export default function Home() {
                   <Text
                     sx={{
                       position: `fixed`,
-                      top: `.8ex`,
+                      top: `2.5ex`,
                       right: `0em`,
                       backgroundColor: `transparent`,
                       outline: `none`,
@@ -521,15 +554,17 @@ export default function Home() {
                   alignItems: `center`,
                 }}
               >
-                <Heading sx={{ lineHeight: `1`, margin: `1ex`, fontSize: `48px` }}>
+                <Heading
+                  sx={{ lineHeight: `1`, margin: `1ex`, fontSize: `48px` }}
+                >
                   Summon Successful
                 </Heading>
                 {summonedNFT && (
-                  <Box sx={{padding: `2ex 2em`}}>
-                  <img
-                    src={summonedNFT?.source}
-                    alt={`Based Ghoul #${summonedNFT?.index}`}
-                  />
+                  <Box sx={{ padding: `2ex 2em` }}>
+                    <img
+                      src={summonedNFT?.source}
+                      alt={`Based Ghoul #${summonedNFT?.index}`}
+                    />
                   </Box>
                 )}
                 <Heading>Your Ghoul Is Rising...</Heading>

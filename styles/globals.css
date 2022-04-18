@@ -26,3 +26,51 @@ a {
 img {
   user-select: none;
 }
+
+.glowFlame {
+  top: 24vh;
+  left: 49.7%;
+  transform: translateX(-50%);
+}
+
+@media screen and (min-width: 1200px) {
+  .glowFlame {
+    top: 24vw;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .glowFlame {
+    top: 26.5vw;
+  }
+}
+
+@media screen and (min-width: 2200px) {
+  .glowFlame {
+    top: 22vh;
+  }
+}
+
+.glowRock {
+  top: 22vh;
+  left: 49.5%;
+
+}
+
+@media screen and (min-width: 1200px) {
+  .glowRock {
+    top: 20vh;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .glowRock {
+    top: 31.5vw;
+  }
+}
+
+@media screen and (min-width: 2200px) {
+  .glowRock {
+    top: 22vh;
+  }
+}
