@@ -28,6 +28,7 @@ export default function Home() {
   const [basedStatusProof, setBasedStatusProof] = useState("");
   const [contract, setContract] = useState();
   const [totalSupply, setTotalSupply] = useState(0);
+  const [viewportWidth, setViewportWidth] = useState();
   const {
     address,
     isUpdating,
@@ -123,12 +124,12 @@ export default function Home() {
   }, [contract, address]);
 
   useEffect(() => {
-    console.log({ address });
     if (address !== null) {
       setStateIndex(1);
     } else {
       setStateIndex(0);
     }
+    setViewportWidth(window.innerWidth);
   }, []);
 
   useEffect(() => {
@@ -160,6 +161,8 @@ export default function Home() {
 
   return (
     <Box sx={{ backgroundColor: `black`, height: `100vh`, overflow: `hidden` }}>
+      {viewportWidth > 1100 && (
+        <>
       {stateIndex === 0 && (
         <>
           <Box
@@ -614,6 +617,11 @@ export default function Home() {
             </Box>
           </Box>
         </>
+      )}
+      </>
+      )}
+      {viewportWidth < 1100 && (
+        <Heading sx={{color: `white`, fontFamily: `lores-12-narrow, monospace`, padding: `1rem`}}>Get on your desktop, summoner.</Heading>
       )}
     </Box>
   );
