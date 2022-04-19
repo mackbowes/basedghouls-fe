@@ -33,9 +33,17 @@ img {
   transform: translateX(-50%);
 }
 
+.glowRock {
+  top: 22vh;
+  left: 49.5%;
+}
+
 @media screen and (min-width: 1200px) {
   .glowFlame {
     top: 24vw;
+  }
+  .glowRock {
+    top: 20vh;
   }
 }
 
@@ -43,34 +51,63 @@ img {
   .glowFlame {
     top: 26.5vw;
   }
-}
-
-@media screen and (min-width: 2200px) {
-  .glowFlame {
-    top: 22vh;
-  }
-}
-
-.glowRock {
-  top: 22vh;
-  left: 49.5%;
-
-}
-
-@media screen and (min-width: 1200px) {
-  .glowRock {
-    top: 20vh;
-  }
-}
-
-@media screen and (min-width: 1600px) {
   .glowRock {
     top: 31.5vw;
   }
 }
 
-@media screen and (min-width: 2200px) {
+@media screen and (min-height: 2160px) {
+  .glowFlame {
+    top: 24vh;
+  }
   .glowRock {
-    top: 22vh;
+    top: 28vh;
+  }
+}
+
+@media screen and (min-height: 2160px) and (max-width: 1900px) {
+  .glowFlame {
+    top: 27vw;
+  }
+  .glowRock {
+    top: 31vw;
+  }
+}
+
+@media screen and (min-height: 2160px) and (max-width: 1700px) {
+  .glowFlame {
+    top: 25vw;
+  }
+  .glowRock {
+    top: 29vw;
+  }
+}
+
+@media screen and (min-height: 2160px) and (max-width: 1500px) {
+  .glowFlame {
+    top: 23vw;
+  }
+  .glowRock {
+    top: 28vw;
+  }
+}
+
+@media screen and (min-height: 2160px) and (max-width: 1200px) {
+  .glowFlame {
+    top: 24.3vw;
+    max-width: 300px;
+  }
+  .glowRock {
+    top: 32vw;
+    max-width: 3rem;
+  }
+}
+
+@media screen and (min-width: 3800px) {
+  .glowFlame {
+    top: 24vh;
+  }
+  .glowRock {
+    top: 28vh;
   }
 }
