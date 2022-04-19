@@ -103,6 +103,46 @@ img {
   }
 }
 
+@media screen and (min-height: 1440px) and (min-width: 1900px) {
+  .glowFlame {
+    top: 37vh;
+  }
+  .glowRock {
+    top: 42vh;
+  }
+}
+
+@media screen and (min-height: 1440px) and (max-width: 1700px) {
+  .glowFlame {
+    top: 25vw;
+  }
+  .glowRock {
+    top: 30vw;
+  }
+}
+
+@media screen and (min-height: 1440px) and (max-width: 1500px) {
+  .glowFlame {
+    top: 26.5vw;
+    max-width: 300px;
+  }
+  .glowRock {
+    top: 31vw;
+    max-width: 4rem;
+  }
+}
+
+@media screen and (min-height: 1440px) and (max-width: 1200px) {
+  .glowFlame {
+    top: 24.3vw;
+    max-width: 300px;
+  }
+  .glowRock {
+    top: 30vw;
+    max-width: 3rem;
+  }
+}
+
 @media screen and (min-width: 3800px) {
   .glowFlame {
     top: 24vh;
