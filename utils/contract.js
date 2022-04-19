@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import {GC_ADDRESS} from './address';
+import {GC_ADDRESS, MN_ADDRESS} from './address';
 import {BasedGhoulsNFTAbi} from './abis/BasedGhoulsNFTAbi';
 import { chainByID } from "./chain";
 
@@ -10,6 +10,9 @@ export const BGContract = (chainID, address, web3) => {
         web3 = new Web3(new Web3.providers.HttpProvider(rpcURL));
     }
     console.log({chainID});
+    if (chainID == "0x1") {
+        contractAddress = MN_ADDRESS;
+    }
     if (chainID == "0x64") {
         contractAddress = GC_ADDRESS;
     }
