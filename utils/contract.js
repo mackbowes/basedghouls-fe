@@ -9,7 +9,7 @@ export const BGContract = (chainID, address, web3) => {
         rpcURL = chainByID(chainID).rpc_url;
         web3 = new Web3(new Web3.providers.HttpProvider(rpcURL));
     }
-    console.log({chainID});
+    
     if (chainID == "0x1") {
         contractAddress = MN_ADDRESS;
     }
