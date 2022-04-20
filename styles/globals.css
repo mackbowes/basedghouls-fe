@@ -38,6 +38,7 @@ img {
   left: 49.5%;
 }
 
+
 @media screen and (min-width: 1200px) {
   .glowFlame {
     top: 24vw;
@@ -149,5 +150,17 @@ img {
   }
   .glowRock {
     top: 28vh;
+  }
+}
+
+@media screen and (max-height: 900px)  {
+  .glowFlame {
+    top: 48vh;
+  }
+  .glowRock {
+    top: 60vh;
+  }
+  .altar {
+    width: 60vw;
   }
 }

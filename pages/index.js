@@ -399,6 +399,7 @@ export default function Home() {
               onClick={() => setIsModalOpen(false)}
             ></Box>
             <Box
+            className="altar"
               sx={{
                 position: `absolute`,
                 left: `50%`,
@@ -548,8 +549,8 @@ export default function Home() {
                 sx={{
                   position: `absolute`,
                   left: `50%`,
-                  top: `15rem`,
-                  transform: `translateX(-50%)`,
+                  top: `50%`,
+                  transform: `translateX(-50%) translateY(-50%)`,
                   width: `750px`,
                   padding: `2ex 1em`,
                   backgroundColor: `#e0e0e0`,
