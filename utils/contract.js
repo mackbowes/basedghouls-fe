@@ -14,9 +14,9 @@ export const BGContract = (chainID, address, web3) => {
         contractAddress = MN_ADDRESS;
     }
     
-    // if (chainID == "0x64") {
-    //     contractAddress = GC_ADDRESS;
-    // }
+    if (chainID == "0x64") {
+        contractAddress = GC_ADDRESS;
+    }
 
     if (typeof contractAddress == "undefined") {
         alert("You must change your chain");

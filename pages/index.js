@@ -26,7 +26,10 @@ export default function Home() {
   const [isFailed, setIsFailed] = useState(false);
   const [shortAddress, setShortAddress] = useState("");
   const [isBased, setIsBased] = useState(false);
+  const [isSummoner, setIsSummoner] = useState(false);
+  const [hasRebased, setHasRebased] = useState(false);
   const [basedStatusProof, setBasedStatusProof] = useState("");
+  const [summonerStatusProof, setSummonerStatusProof] = useState("");
   const [contract, setContract] = useState();
   const [totalSupply, setTotalSupply] = useState(0);
   const [viewportWidth, setViewportWidth] = useState();
@@ -40,7 +43,10 @@ export default function Home() {
   } = useInjectedProvider();
 
   const mint = async () => {
-    const transaction = contract?.methods?.mint(basedStatusProof);
+    const transaction = contract?.methods?.summon(
+      basedStatusProof,
+      false
+    );
     const txResponse = await transaction
       .send("eth_requestAccounts")
       .once("transactionHash", (hash) => {
@@ -64,7 +70,62 @@ export default function Home() {
           index: tokenID,
         });
       });
+    console.log({ txResponse });
   };
+
+  const summon = async () => {
+    const transaction = contract?.methods?.summon(
+      summonerStatusProof,
+      true
+    );
+    const txResponse = await transaction
+      .send("eth_requestAccounts")
+      .once("transactionHash", (hash) => {
+        console.log({ hash });
+        setIsModalOpen(false);
+        setIsTransacting(true);
+      })
+      .once("confirmation", async () => {
+        setIsTransacting(false);
+        setIsSummoned(true);
+      })
+      .once("error", (error) => {
+        setIsTransacting(false);
+        console.log(error);
+        setIsFailed(true);
+      })
+      .then(async (receipt) => {
+        const tokenID = receipt?.events?.Transfer?.returnValues?.tokenId;
+        setSummonedNFT({
+          source: `https://ghlsprereveal.s3.amazonaws.com/images/Shallow_Grave.png`,
+          index: tokenID,
+        });
+      });
+    console.log({ txResponse });
+  }
+
+  const enableMint = async () => {
+    const transaction = contract?.methods?.setMintability(
+      true
+    );
+    const txResponse = await transaction
+      .send("eth_requestAccounts")
+      .once("transactionHash", (hash) => {
+        console.log({ hash });
+        setIsModalOpen(false);
+        setIsTransacting(true);
+      })
+      .once("confirmation", async () => {
+        setIsTransacting(false);
+        setIsSummoned(true);
+      })
+      .once("error", (error) => {
+        setIsTransacting(false);
+        console.log(error);
+        setIsFailed(true);
+      })
+    console.log({ txResponse });
+  }
 
   async function getBasedStatus(addressToCheck) {
     const stringedAddress = JSON.stringify({ address: addressToCheck });
@@ -74,10 +135,25 @@ export default function Home() {
     };
     const res = await fetch("/api/merkle", req);
     const jsonres = await res.json();
-    console.log(jsonres?.hexProof);
-    setIsBased(jsonres?.basedBoolean);
-    setBasedStatusProof(jsonres?.hexProof);
+    setIsBased(jsonres?.expansionPak?.epBoolean);
+    setBasedStatusProof(jsonres?.expansionPak?.epHexProof);
+    setIsSummoner(jsonres?.summonerList?.slBoolean);
+    setSummonerStatusProof(jsonres?.summonerList?.slHexProof);
   }
+
+  useEffect(() => {
+    async function checkRebaseRedemption() {
+      if (address !== null && contract !== null) {
+        setHasRebased(
+          await contract?.methods?.REBASERedemption(address).call()
+        );
+      }
+    }
+    checkRebaseRedemption();
+    if (contract !== null) {
+      console.log({ contract });
+    }
+  }, [address, contract]);
 
   useEffect(() => {
     console.log({ address });
@@ -535,7 +611,45 @@ export default function Home() {
                         ghouls raised: {totalSupply} / 6666
                       </Text>
                     </Box>
+                    {/* <Heading onClick={() => enableMint()}>ENABLE MINT</Heading> */}
                   </Box>
+                  {!hasRebased && isSummoner && (
+                    <>
+                      <Box
+                        sx={{
+                          color: `white`,
+                          position: `fixed`,
+                          top: `50%`,
+                          left: `50%`,
+                          transform: `translateX(-50%) translateY(-50%)`,
+                          zIndex: `525600`,
+                        }}
+                        _hover={{
+                          cursor: `url(images/png/cursorhover.png), auto`,
+                        }}
+                        onClick={() => summon()}
+                      >
+                        <img
+                          src="/images/svg/rebase.svg"
+                          alt=""
+                          style={{ width: `800px` }}
+                          draggable="false"
+                        />
+                        <Heading
+                          sx={{
+                            fontFamily: `lores-12-narrow, monospace`,
+                            color: `#157196`,
+                            position: `fixed`,
+                            top: `50%`,
+                            left: `50%`,
+                            transform: `translateX(-50%) translateY(-50%)`,
+                          }}
+                        >
+                          FIRE THE REBASE
+                        </Heading>
+                      </Box>
+                    </>
+                  )}
                 </Box>
               </Box>
             </>
