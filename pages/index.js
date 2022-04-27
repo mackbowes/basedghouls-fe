@@ -88,6 +88,7 @@ export default function Home() {
       .once("confirmation", async () => {
         setIsTransacting(false);
         setIsSummoned(true);
+        setHasRebased(true);
       })
       .once("error", (error) => {
         setIsTransacting(false);
