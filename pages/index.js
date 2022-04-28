@@ -530,7 +530,7 @@ export default function Home() {
                       style={{ backgroundColor: `transparent`, width: `100%` }}
                     />
                   </Box>
-                  <Box
+                  {/* <Box
                     sx={{
                       position: `absolute`,
                       top: `18.5%`,
@@ -548,7 +548,7 @@ export default function Home() {
                       alt=""
                       style={{ backgroundColor: `transparent`, width: `100%` }}
                     />
-                  </Box>
+                  </Box> */}
                   <Box
                     sx={{
                       position: `absolute`,
@@ -614,7 +614,7 @@ export default function Home() {
                     </Box>
                     {/* <Heading onClick={() => enableMint()}>ENABLE MINT</Heading> */}
                   </Box>
-                  {!hasRebased && isSummoner && (
+                  {/* {!hasRebased && isSummoner && (
                     <>
                       <Box
                         sx={{
@@ -650,7 +650,7 @@ export default function Home() {
                         </Heading>
                       </Box>
                     </>
-                  )}
+                  )} */}
                 </Box>
               </Box>
             </>
