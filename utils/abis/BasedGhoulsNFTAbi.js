@@ -182,19 +182,6 @@ export const BasedGhoulsNFTAbi = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "EXPANSION_PAK",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -208,45 +195,6 @@ export const BasedGhoulsNFTAbi = [
         "internalType": "bool",
         "name": "",
         "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "REVEAL_BATCH_SIZE",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "SUMMONER_LIST",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "TOKEN_LIMIT",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -290,38 +238,6 @@ export const BasedGhoulsNFTAbi = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "baseURI",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "batchToSeed",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -335,6 +251,96 @@ export const BasedGhoulsNFTAbi = [
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getGhoulData",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "isMintable",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint16",
+            "name": "totalSupply",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "maxGhouls",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "summonedGhouls",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "rebasedGhouls",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "maxRebasedGhouls",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "lastTokenRevealed",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "TOKEN_LIMIT",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "REVEAL_BATCH_SIZE",
+            "type": "uint16"
+          },
+          {
+            "internalType": "string",
+            "name": "baseURI",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "unrevealedURI",
+            "type": "string"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "EXPANSION_PAK",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "SUMMONER_LIST",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address",
+            "name": "shufflerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "isHordeReleased",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct BasedGhoulsv269.GhoulData",
+        "name": "",
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -417,13 +423,25 @@ export const BasedGhoulsNFTAbi = [
       }
     ],
     "name": "insertExpansionPack",
-    "outputs": [
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
       {
         "internalType": "bytes32",
-        "name": "",
+        "name": "_newMerkle",
         "type": "bytes32"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_maxRebasedGhouls",
+        "type": "uint16"
       }
     ],
+    "name": "insertRebasePack",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -446,71 +464,6 @@ export const BasedGhoulsNFTAbi = [
         "internalType": "bool",
         "name": "",
         "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "isHordeReleased",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "isMintable",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "lastTokenRevealed",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "maxGhouls",
-    "outputs": [
-      {
-        "internalType": "uint16",
-        "name": "",
-        "type": "uint16"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "maxRebasedGhouls",
-    "outputs": [
-      {
-        "internalType": "uint16",
-        "name": "",
-        "type": "uint16"
       }
     ],
     "stateMutability": "view",
@@ -549,19 +502,6 @@ export const BasedGhoulsNFTAbi = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "rebasedGhouls",
-    "outputs": [
-      {
-        "internalType": "uint16",
-        "name": "",
-        "type": "uint16"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "bool",
@@ -570,13 +510,7 @@ export const BasedGhoulsNFTAbi = [
       }
     ],
     "name": "releaseTheHorde",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -730,6 +664,19 @@ export const BasedGhoulsNFTAbi = [
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_address",
+        "type": "address"
+      }
+    ],
+    "name": "setShufflerAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes32[]",
         "name": "_merkleProof",
         "type": "bytes32[]"
@@ -743,19 +690,6 @@ export const BasedGhoulsNFTAbi = [
     "name": "summon",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "summonedGhouls",
-    "outputs": [
-      {
-        "internalType": "uint16",
-        "name": "",
-        "type": "uint16"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -810,19 +744,6 @@ export const BasedGhoulsNFTAbi = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "totalSupply",
-    "outputs": [
-      {
-        "internalType": "uint16",
-        "name": "",
-        "type": "uint16"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -843,19 +764,6 @@ export const BasedGhoulsNFTAbi = [
     "name": "transferFrom",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "unrevealedURI",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {

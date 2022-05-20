@@ -10,8 +10,10 @@ import {
   keyframes,
 } from "@chakra-ui/react";
 import { motion, isValidMotionProp } from "framer-motion";
-import { useInjectedProvider } from "../contexts/InjectedProviderContext";
+import { useEthers } from "../contexts/EthersProviderContext";
 import { BGContract } from "../utils/contract";
+import { ethers } from "ethers";
+import styles from '../styles/Styles.module.scss'
 
 const AnimBox = chakra(motion.div, {
   shouldForwardProp: isValidMotionProp,
@@ -22,6 +24,7 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTransacting, setIsTransacting] = useState(false);
   const [isSummoned, setIsSummoned] = useState(false);
+  const [isMintable, setIsMintable] = useState(false);
   const [summonedNFT, setSummonedNFT] = useState({});
   const [isFailed, setIsFailed] = useState(false);
   const [shortAddress, setShortAddress] = useState("");
@@ -37,96 +40,90 @@ export default function Home() {
     address,
     isUpdating,
     connectProvider,
-    disconnectDapp,
-    injectedChain,
-    injectedProvider,
-  } = useInjectedProvider();
+    signer,
+    provider
+  } = useEthers();
 
   const mint = async () => {
-    const transaction = contract?.methods?.summon(
-      basedStatusProof,
-      false
-    );
-    const txResponse = await transaction
-      .send("eth_requestAccounts")
-      .once("transactionHash", (hash) => {
-        console.log({ hash });
-        setIsModalOpen(false);
-        setIsTransacting(true);
-      })
-      .once("confirmation", async () => {
-        setIsTransacting(false);
-        setIsSummoned(true);
-      })
-      .once("error", (error) => {
-        setIsTransacting(false);
-        console.log(error);
-        setIsFailed(true);
-      })
-      .then(async (receipt) => {
-        const tokenID = receipt?.events?.Transfer?.returnValues?.tokenId;
-        setSummonedNFT({
-          source: `https://ghlsprereveal.s3.amazonaws.com/images/Shallow_Grave.png`,
-          index: tokenID,
-        });
-      });
-    console.log({ txResponse });
+    try {
+    const transaction = await contract?.write?.summon(basedStatusProof, false);
+    setIsModalOpen(false);
+    setIsTransacting(true);
+    console.log({transaction});
+    const receipt = await transaction.wait();
+    console.log({receipt});
+    if (receipt?.status == 1) {
+      setIsTransacting(false);
+      setIsSummoned(true);
+    }
+  } catch (error) {
+    console.log({error});
+    setIsTransacting(false);
+    setIsFailed(true);
+  }
+    // const something = await signer.sendTransaction(transaction);
+    // console.log({something});
+    // const receipt = await transaction.wait();
+    // console.log({receipt});
+    // const txResponse = await transaction
+    //   .send("eth_requestAccounts")
+    //   .once("transactionHash", (hash) => {
+    //     console.log({ hash });
+    //     setIsModalOpen(false);
+    //     setIsTransacting(true);
+    //   })
+    //   .once("confirmation", async () => {
+    //     setIsTransacting(false);
+    //     setIsSummoned(true);
+    //   })
+    //   .once("error", (error) => {
+    //     setIsTransacting(false);
+    //     console.log(error);
+    //     setIsFailed(true);
+    //   })
+    //   .then(async (receipt) => {
+    //     const tokenID = receipt?.events?.Transfer?.returnValues?.tokenId;
+    //     setSummonedNFT({
+    //       source: `https://ghlsprereveal.s3.amazonaws.com/images/Shallow_Grave.png`,
+    //       index: tokenID,
+    //     });
+    //   });
+    // console.log({ txResponse });
   };
 
   const summon = async () => {
-    const transaction = contract?.methods?.summon(
-      summonerStatusProof,
-      true
-    );
-    const txResponse = await transaction
-      .send("eth_requestAccounts")
-      .once("transactionHash", (hash) => {
-        console.log({ hash });
-        setIsModalOpen(false);
-        setIsTransacting(true);
-      })
-      .once("confirmation", async () => {
-        setIsTransacting(false);
-        setIsSummoned(true);
-        setHasRebased(true);
-      })
-      .once("error", (error) => {
-        setIsTransacting(false);
-        console.log(error);
-        setIsFailed(true);
-      })
-      .then(async (receipt) => {
-        const tokenID = receipt?.events?.Transfer?.returnValues?.tokenId;
-        setSummonedNFT({
-          source: `https://ghlsprereveal.s3.amazonaws.com/images/Shallow_Grave.png`,
-          index: tokenID,
-        });
-      });
-    console.log({ txResponse });
-  }
+    const transaction = contract?.write?.summon(summonerStatusProof, true);
+    // const something = await signer.sendTransaction(transaction);
+    const receipt = transaction.wait();
+    console.log({receipt});
+    console.log({something});
+    // const txResponse = await transaction
+    //   .send("eth_requestAccounts")
+    //   .once("transactionHash", (hash) => {
+    //     console.log({ hash });
+    //     setIsModalOpen(false);
+    //     setIsTransacting(true);
+    //   })
+    //   .once("confirmation", async () => {
+    //     setIsTransacting(false);
+    //     setIsSummoned(true);
+    //     setHasRebased(true);
+    //   })
+    //   .once("error", (error) => {
+    //     setIsTransacting(false);
+    //     console.log(error);
+    //     setIsFailed(true);
+    //   })
+    //   .then(async (receipt) => {
+    //     const tokenID = receipt?.events?.Transfer?.returnValues?.tokenId;
+    //     setSummonedNFT({
+    //       source: `https://ghlsprereveal.s3.amazonaws.com/images/Shallow_Grave.png`,
+    //       index: tokenID,
+    //     });
+    //   });
+    // console.log({ txResponse });
+  };
 
-  const enableMint = async () => {
-    const transaction = contract?.methods?.setMintability(
-      true
-    );
-    const txResponse = await transaction
-      .send("eth_requestAccounts")
-      .once("transactionHash", (hash) => {
-        console.log({ hash });
-        setIsModalOpen(false);
-        setIsTransacting(true);
-      })
-      .once("confirmation", async () => {
-        setIsTransacting(false);
-        setIsSummoned(true);
-      })
-      .once("error", (error) => {
-        setIsTransacting(false);
-        console.log(error);
-        setIsFailed(true);
-      })
-    console.log({ txResponse });
-  }
 
   async function getBasedStatus(addressToCheck) {
     const stringedAddress = JSON.stringify({ address: addressToCheck });
@@ -146,7 +143,7 @@ export default function Home() {
     async function checkRebaseRedemption() {
       if (address !== null && contract !== null) {
         setHasRebased(
-          await contract?.methods?.REBASERedemption(address).call()
+          await contract?.read?.REBASERedemption(address)
         );
       }
     }
@@ -171,20 +168,28 @@ export default function Home() {
   }, [address]);
 
   useEffect(() => {
-    if (!!injectedChain && !!address) {
+    async function getContract() { 
+    if (!!provider && !!address) {
+      let network = await provider.getNetwork();
       let tempContract = BGContract(
-        injectedChain.chainId,
+        network.chainId,
         address,
-        injectedProvider
+        provider,
+        signer,
       );
       setContract(tempContract);
+      }
     }
-  }, [injectedChain, address]);
+    getContract();
+  }, [provider, address]);
 
   useEffect(() => {
     if (typeof contract !== "undefined") {
       async function getSupply() {
-        const tempSupply = await contract.methods.totalSupply().call();
+        const ghouldata = await contract?.read.getGhoulData();
+        const tempSupply = ghouldata.totalSupply;
+        const tempIsMintable = ghouldata.isMintable;
+        setIsMintable(tempIsMintable);
         setTotalSupply(tempSupply);
       }
       getSupply();
@@ -194,7 +199,7 @@ export default function Home() {
   useEffect(() => {
     if (typeof contract !== "undefined" && typeof address !== "undefined") {
       const getNFTArray = async () => {
-        const NFTArray = await contract.methods.balanceOf(address).call();
+        const NFTArray = await contract?.read.balanceOf(address);
         console.log({ NFTArray });
       };
       getNFTArray();
@@ -441,6 +446,8 @@ export default function Home() {
                     draggable="false"
                   />
                 </Box>
+                {isMintable && (<>
+                <Box>
                 <Box
                   as={motion.div}
                   animation={glowAnimation}
@@ -477,6 +484,8 @@ export default function Home() {
                     onClick={() => setIsModalOpen(true)}
                   />
                 </Box>
+                </Box>
+                </>)}
               </Box>
             </>
           )}
@@ -530,7 +539,7 @@ export default function Home() {
                       style={{ backgroundColor: `transparent`, width: `100%` }}
                     />
                   </Box>
-                  {/* <Box
+                  <Box
                     sx={{
                       position: `absolute`,
                       top: `18.5%`,
@@ -548,7 +557,7 @@ export default function Home() {
                       alt=""
                       style={{ backgroundColor: `transparent`, width: `100%` }}
                     />
-                  </Box> */}
+                  </Box>
                   <Box
                     sx={{
                       position: `absolute`,
@@ -613,8 +622,28 @@ export default function Home() {
                       </Text>
                     </Box>
                     {/* <Heading onClick={() => enableMint()}>ENABLE MINT</Heading> */}
+                    {/* <Heading
+                      sx={{
+                        backgroundColor: `white`,
+                        color: `black`,
+                        padding: `2rem`,
+                      }}
+                      onClick={() => addBatchRevealer()}
+                    >
+                      SET SHUFFLER
+                    </Heading>
+                    <Heading
+                      sx={{
+                        backgroundColor: `white`,
+                        color: `black`,
+                        padding: `2rem`,
+                      }}
+                      onClick={() => enableMint()}
+                    >
+                      Enable MINT
+                    </Heading> */}
                   </Box>
-                  {/* {!hasRebased && isSummoner && (
+                  {!hasRebased && isSummoner && (
                     <>
                       <Box
                         sx={{
@@ -650,7 +679,7 @@ export default function Home() {
                         </Heading>
                       </Box>
                     </>
-                  )} */}
+                  )}
                 </Box>
               </Box>
             </>
@@ -698,22 +727,24 @@ export default function Home() {
                       display: `flex`,
                       flexDirection: `column`,
                       alignItems: `center`,
+                      fontFamily: `'lores-12-narrow', monospace`,
                     }}
                   >
                     <Heading
-                      sx={{ lineHeight: `1`, margin: `1ex`, fontSize: `48px` }}
+                      sx={{ lineHeight: `1`, margin: `1ex`, fontSize: `48px`,fontFamily: `'lores-12-narrow', monospace`, }}
                     >
                       Summon Successful
                     </Heading>
                     {summonedNFT && (
                       <Box sx={{ padding: `2ex 2em` }}>
                         <img
-                          src={summonedNFT?.source}
-                          alt={`Based Ghoul #${summonedNFT?.index}`}
+                          src={`https://ghlsprereveal.s3.amazonaws.com/images/Shallow_Grave.png`}
+                          alt={`An Unrevealed Ghoul`}
                         />
                       </Box>
                     )}
-                    <Heading>Your Ghoul Is Rising...</Heading>
+                    <Heading sx={{fontFamily: `'lores-12-narrow', monospace`,}}>Your Ghoul Is Rising...</Heading>
+                    <br />
                     <Box
                       sx={{
                         display: `block`,
@@ -746,17 +777,21 @@ export default function Home() {
                   alignItems: `center`,
                 }}
               >
-                <Heading>Summon Failed</Heading>
+                <Heading sx={{fontFamily: `'lores-12-narrow', monospace`,}}>Summon Failed</Heading>
+                <br />
+                <img src={'https://ripv1ghls.s3.amazonaws.com/baseimages/1.png'} alt="All your friends are dead." />
+                <br />
                 <Box
                   sx={{
                     display: `block`,
                     border: `2px solid #333`,
                     padding: `1ex 1em`,
                     width: `fit-content`,
+                    fontFamily: `'lores-12-narrow', monospace`,
                   }}
                   onClick={() => setIsFailed(false)}
                 >
-                  Close
+                  rugged again..
                 </Box>
               </Box>
             </>

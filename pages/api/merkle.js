@@ -1,9 +1,9 @@
 const { MerkleTree } = require("merkletreejs");
 const keccak256 = require("keccak256");
-import { allowList, SUMMONER_LIST } from "../../utils/allowlist";
+import { allowList, rebaseList } from "../../utils/allowlist";
 
 const expansionPakLeafNodes = allowList.map((addr) => keccak256(addr));
-const summonerListLeafNodes = SUMMONER_LIST.map((addr) => keccak256(addr));
+const summonerListLeafNodes = rebaseList.map((addr) => keccak256(addr));
 const epTree = new MerkleTree(expansionPakLeafNodes, keccak256, {
   sortPairs: true,
 });

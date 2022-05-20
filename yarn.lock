@@ -956,10 +956,10 @@
     "@ethereumjs/common" "^2.6.3"
     "ethereumjs-util" "^7.1.4"
 
-"@ethersproject/abi@^5.6.0", "@ethersproject/abi@5.6.0":
-  "integrity" "sha512-AhVByTwdXCc2YQ20v300w6KVHle9g2OFc28ZAFCPnJyEpkv1xKXjZcSTgWOlv1i+0dqlgF8RCF2Rn2KC1t+1Vg=="
-  "resolved" "https://registry.npmjs.org/@ethersproject/abi/-/abi-5.6.0.tgz"
-  "version" "5.6.0"
+"@ethersproject/abi@^5.6.0", "@ethersproject/abi@5.6.1":
+  "integrity" "sha512-0cqssYh6FXjlwKWBmLm3+zH2BNARoS5u/hxbz+LpQmcDB3w0W553h2btWui1/uZp2GBM/SI3KniTuMcYyHpA5w=="
+  "resolved" "https://registry.npmjs.org/@ethersproject/abi/-/abi-5.6.1.tgz"
+  "version" "5.6.1"
   dependencies:
     "@ethersproject/address" "^5.6.0"
     "@ethersproject/bignumber" "^5.6.0"
@@ -1139,10 +1139,10 @@
   "resolved" "https://registry.npmjs.org/@ethersproject/logger/-/logger-5.6.0.tgz"
   "version" "5.6.0"
 
-"@ethersproject/networks@^5.6.0", "@ethersproject/networks@5.6.1":
-  "integrity" "sha512-b2rrupf3kCTcc3jr9xOWBuHylSFtbpJf79Ga7QR98ienU2UqGimPGEsYMgbI29KHJfA5Us89XwGVmxrlxmSrMg=="
-  "resolved" "https://registry.npmjs.org/@ethersproject/networks/-/networks-5.6.1.tgz"
-  "version" "5.6.1"
+"@ethersproject/networks@^5.6.0", "@ethersproject/networks@5.6.2":
+  "integrity" "sha512-9uEzaJY7j5wpYGTojGp8U89mSsgQLc40PCMJLMCnFXTs7nhBveZ0t7dbqWUNrepWTszDbFkYD6WlL8DKx5huHA=="
+  "resolved" "https://registry.npmjs.org/@ethersproject/networks/-/networks-5.6.2.tgz"
+  "version" "5.6.2"
   dependencies:
     "@ethersproject/logger" "^5.6.0"
 
@@ -1161,10 +1161,10 @@
   dependencies:
     "@ethersproject/logger" "^5.6.0"
 
-"@ethersproject/providers@^5.5.2", "@ethersproject/providers@5.6.2":
-  "integrity" "sha512-6/EaFW/hNWz+224FXwl8+HdMRzVHt8DpPmu5MZaIQqx/K/ELnC9eY236SMV7mleCM3NnEArFwcAAxH5kUUgaRg=="
-  "resolved" "https://registry.npmjs.org/@ethersproject/providers/-/providers-5.6.2.tgz"
-  "version" "5.6.2"
+"@ethersproject/providers@^5.5.2", "@ethersproject/providers@5.6.5":
+  "integrity" "sha512-TRS+c2Ud+cMpWodmGAc9xbnYRPWzRNYt2zkCSnj58nJoamBQ6x4cUbBeo0lTC3y+6RDVIBeJv18OqsDbSktLVg=="
+  "resolved" "https://registry.npmjs.org/@ethersproject/providers/-/providers-5.6.5.tgz"
+  "version" "5.6.5"
   dependencies:
     "@ethersproject/abstract-provider" "^5.6.0"
     "@ethersproject/abstract-signer" "^5.6.0"
@@ -1211,10 +1211,10 @@
     "@ethersproject/logger" "^5.6.0"
     "hash.js" "1.1.7"
 
-"@ethersproject/signing-key@^5.6.0", "@ethersproject/signing-key@5.6.0":
-  "integrity" "sha512-S+njkhowmLeUu/r7ir8n78OUKx63kBdMCPssePS89So1TH4hZqnWFsThEd/GiXYp9qMxVrydf7KdM9MTGPFukA=="
-  "resolved" "https://registry.npmjs.org/@ethersproject/signing-key/-/signing-key-5.6.0.tgz"
-  "version" "5.6.0"
+"@ethersproject/signing-key@^5.6.0", "@ethersproject/signing-key@5.6.1":
+  "integrity" "sha512-XvqQ20DH0D+bS3qlrrgh+axRMth5kD1xuvqUQUTeezxUTXBOeR6hWz2/C6FBEu39FRytyybIWrYf7YLSAKr1LQ=="
+  "resolved" "https://registry.npmjs.org/@ethersproject/signing-key/-/signing-key-5.6.1.tgz"
+  "version" "5.6.1"
   dependencies:
     "@ethersproject/bytes" "^5.6.0"
     "@ethersproject/logger" "^5.6.0"
@@ -3563,12 +3563,12 @@
     "rustbn.js" "~0.2.0"
     "safe-buffer" "^5.1.1"
 
-"ethers@^5.4.7", "ethers@^5.5.3", "ethers@^5.6.0":
-  "integrity" "sha512-EzGCbns24/Yluu7+ToWnMca3SXJ1Jk1BvWB7CCmVNxyOeM4LLvw2OLuIHhlkhQk1dtOcj9UMsdkxUh8RiG1dxQ=="
-  "resolved" "https://registry.npmjs.org/ethers/-/ethers-5.6.2.tgz"
-  "version" "5.6.2"
+"ethers@^5.4.7", "ethers@^5.5.3", "ethers@^5.6.5":
+  "integrity" "sha512-9CTmplO9bv0s/aPw3HB3txGzKz3tUSI2EfO4dJo0W2WvaEq1ArgsEX6obV+bj5X3yY+Zgb1kAux8TDtJKe1FaA=="
+  "resolved" "https://registry.npmjs.org/ethers/-/ethers-5.6.5.tgz"
+  "version" "5.6.5"
   dependencies:
-    "@ethersproject/abi" "5.6.0"
+    "@ethersproject/abi" "5.6.1"
     "@ethersproject/abstract-provider" "5.6.0"
     "@ethersproject/abstract-signer" "5.6.0"
     "@ethersproject/address" "5.6.0"
@@ -3583,14 +3583,14 @@
     "@ethersproject/json-wallets" "5.6.0"
     "@ethersproject/keccak256" "5.6.0"
     "@ethersproject/logger" "5.6.0"
-    "@ethersproject/networks" "5.6.1"
+    "@ethersproject/networks" "5.6.2"
     "@ethersproject/pbkdf2" "5.6.0"
     "@ethersproject/properties" "5.6.0"
-    "@ethersproject/providers" "5.6.2"
+    "@ethersproject/providers" "5.6.5"
     "@ethersproject/random" "5.6.0"
     "@ethersproject/rlp" "5.6.0"
     "@ethersproject/sha2" "5.6.0"
-    "@ethersproject/signing-key" "5.6.0"
+    "@ethersproject/signing-key" "5.6.1"
     "@ethersproject/solidity" "5.6.0"
     "@ethersproject/strings" "5.6.0"
     "@ethersproject/transactions" "5.6.0"
@@ -5908,10 +5908,10 @@
   "resolved" "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz"
   "version" "2.1.2"
 
-"sass@^1.3.0", "sass@^1.50.0":
-  "integrity" "sha512-cLsD6MEZ5URXHStxApajEh7gW189kkjn4Rc8DQweMyF+o5HF5nfEz8QYLMlPsTOD88DknatTmBWkOcw5/LnJLQ=="
-  "resolved" "https://registry.npmjs.org/sass/-/sass-1.50.0.tgz"
-  "version" "1.50.0"
+"sass@^1.3.0", "sass@^1.52.0":
+  "integrity" "sha512-6EnTglag2oVD8sNJCxUi2Jd3ICH9tJ5Mqudt/gIZNBR2uKJUBZuTpW9O1t04SkDLP7VFa76FCWTV2rwchqM8Kw=="
+  "resolved" "https://registry.npmjs.org/sass/-/sass-1.52.0.tgz"
+  "version" "1.52.0"
   dependencies:
     "chokidar" ">=3.0.0 <4.0.0"
     "immutable" "^4.0.0"

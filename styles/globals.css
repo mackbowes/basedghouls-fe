@@ -38,6 +38,10 @@ img {
   left: 49.5%;
 }
 
+.altar {
+  width: 80vw;
+}
+
 
 @media screen and (min-width: 1200px) {
   .glowFlame {
