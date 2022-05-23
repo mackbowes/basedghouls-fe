@@ -7,12 +7,12 @@ import { ethers } from "ethers";
 export const BGContract = (chainID, address, provider, signer) => {
     let contractAddress;
     
-    // if (chainID == "0x1") {
-    //     contractAddress = MN_ADDRESS;
-    // }
+    if (chainID == "0x1") {
+        contractAddress = MN_ADDRESS;
+    }
     
-    contractAddress = GC_ADDRESS;
     if (chainID == "0x64") {
+        contractAddress = GC_ADDRESS;
     }
 
     if (typeof contractAddress == "undefined") {
