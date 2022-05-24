@@ -378,21 +378,21 @@ export default function Home() {
                       cursor: `url(images/png/cursorhover.png), auto`,
                     }}
                   >
-                    {/* <a
+                    <a
                       href="https://opensea.io/collection/based-ghouls"
                       target="_blank"
                       rel="noreferrer"
                       style={{
                         cursor: `url(images/png/cursorhover.png), auto`,
                       }}
-                    > */}
+                    >
                       <img
                         src="/images/svg/UPDATEDopensea.svg"
                         alt=""
                         style={{ backgroundColor: `transparent` }}
                         draggable="false"
                       />
-                    {/* </a> */}
+                    </a>
                   </Box>
                   <Box
                     sx={{
@@ -404,21 +404,21 @@ export default function Home() {
                       cursor: `url(images/png/cursorhover.png), auto`,
                     }}
                   >
-                    {/* <a
-                      href="https://looksrare.org/collections/0x938e5ed128458139A9c3306aCE87C60BCBA9c067"
+                    <a
+                      href="https://looksrare.org/collections/0xeF1a89cbfAbE59397FfdA11Fc5DF293E9bC5Db90"
                       target="_blank"
                       rel="noreferrer"
                       style={{
                         cursor: `url(images/png/cursorhover.png), auto`,
                       }}
-                    > */}
+                    >
                       <img
                         src="/images/svg/UPDATEDlooks.svg"
                         alt=""
                         style={{ backgroundColor: `transparent` }}
                         draggable="false"
                       />
-                    {/* </a> */}
+                    </a>
                   </Box>
                 </Box>
                 <Box
