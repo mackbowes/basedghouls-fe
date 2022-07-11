@@ -143,7 +143,7 @@ export default function Home() {
     async function checkRebaseRedemption() {
       if (address !== null && contract !== null) {
         setHasRebased(
-          await contract?.read?.REBASERedemption(address)
+          await contract?.read?.REBASERedemption2(address)
         );
       }
     }
@@ -191,6 +191,7 @@ export default function Home() {
         const tempIsMintable = ghouldata.isMintable;
         setIsMintable(tempIsMintable);
         setTotalSupply(tempSupply);
+        console.log({tempSupply});
       }
       getSupply();
     }
