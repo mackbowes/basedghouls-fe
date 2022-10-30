@@ -14,6 +14,7 @@ import { useEthers } from "../contexts/EthersProviderContext";
 import { BGContract } from "../utils/contract";
 import { ethers } from "ethers";
 import styles from "../styles/Styles.module.scss";
+import Link from "next/link";
 
 const AnimBox = chakra(motion.div, {
   shouldForwardProp: isValidMotionProp,
@@ -800,11 +801,11 @@ export default function Home() {
               <Text>&gt; Public Communications Archive</Text>
             </a>
             <a href="https://t.me/basedghouls" target="_blank" rel="noreferrer">
-              <Text>&gt; Summoner's Discussion Chamber</Text>
+              <Text>&gt; Summoner&apos;s Discussion Chamber</Text>
             </a>
-            <a href="/achievements">
+            <Link href="/achievements">
               <Text>&gt; Summoner Hall of Fame</Text>
-            </a>
+            </Link>
           </Box>
         </>
       )}
