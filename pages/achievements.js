@@ -307,7 +307,8 @@ export default function Achievements(props) {
             fontSize: `1.5vw`,
           }}
         >
-          This ritual requires an ethereal sacrifice. The instructions for completing the ritual should be clear to you now.
+          This ritual requires an ethereal sacrifice. The instructions for
+          completing the ritual should be clear to you now.
         </Text>
       </Modal>
       <Modal isOpen={ritualStatus == 2}>
@@ -322,7 +323,8 @@ export default function Achievements(props) {
             fontSize: `1.5vw`,
           }}
         >
-          Summoner, please confirm your request for consideration by the council of ancients.
+          Summoner, please confirm your request for consideration by the council
+          of ancients.
         </Text>
       </Modal>
       <Modal isOpen={ritualStatus == 3}>
@@ -337,10 +339,14 @@ export default function Achievements(props) {
             fontSize: `1.5vw`,
           }}
         >
-          The ritual is in progress. The council of ancients is evaluating your words and deeds. Have patience.
+          The ritual is in progress. The council of ancients is evaluating your
+          words and deeds. Have patience.
         </Text>
       </Modal>
-      <Modal isOpen={ritualStatus == 4} closeFunction={() => setRitualStatus(0)}>
+      <Modal
+        isOpen={ritualStatus == 4}
+        closeFunction={() => setRitualStatus(0)}
+      >
         {" "}
         <Text
           sx={{
@@ -352,10 +358,17 @@ export default function Achievements(props) {
             fontSize: `1.5vw`,
           }}
         >
-          The ritual has successfully completed. The council of ancients thanks you for your participation.
+          The ritual has successfully completed. The council of ancients thanks
+          you for your participation. The merchant logs from the Open Sea
+          trading company may have hidden your achievement... if you wish to
+          demonstrate your achievement to others, you may have to manually
+          request prominence.
         </Text>
       </Modal>
-      <Modal isOpen={ritualStatus == 5} closeFunction={() => setRitualStatus(0)}>
+      <Modal
+        isOpen={ritualStatus == 5}
+        closeFunction={() => setRitualStatus(0)}
+      >
         {" "}
         <Text
           sx={{
@@ -367,7 +380,8 @@ export default function Achievements(props) {
             fontSize: `1.5vw`,
           }}
         >
-          The ritual has completed unsuccessfully. Please contact the council about this error.
+          The ritual has completed unsuccessfully. Please contact the council
+          about this error.
         </Text>
       </Modal>
     </Box>
@@ -387,7 +401,8 @@ const Modal = (props) => {
               height: `100vh`,
               left: `0`,
               top: `0`,
-            }} onClick={() => props?.closeFunction()}
+            }}
+            onClick={() => props?.closeFunction()}
           ></Box>
           <Box
             sx={{
@@ -397,7 +412,7 @@ const Modal = (props) => {
               top: `50%`,
               transform: `translateX(-50%) translateY(-50%)`,
               padding: `2rem`,
-              border: `2px solid white`
+              border: `2px solid white`,
             }}
           >
             {props.children}
