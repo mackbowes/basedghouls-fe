@@ -13,7 +13,7 @@ import { motion, isValidMotionProp } from "framer-motion";
 import { useEthers } from "../contexts/EthersProviderContext";
 import { BGContract } from "../utils/contract";
 import { ethers } from "ethers";
-import styles from '../styles/Styles.module.scss'
+import styles from "../styles/Styles.module.scss";
 
 const AnimBox = chakra(motion.div, {
   shouldForwardProp: isValidMotionProp,
@@ -36,94 +36,37 @@ export default function Home() {
   const [contract, setContract] = useState();
   const [totalSupply, setTotalSupply] = useState(0);
   const [viewportWidth, setViewportWidth] = useState();
-  const {
-    address,
-    isUpdating,
-    connectProvider,
-    signer,
-    provider
-  } = useEthers();
+  const { address, isUpdating, connectProvider, signer, provider } =
+    useEthers();
 
   const mint = async () => {
     try {
-    const transaction = await contract?.write?.summon(basedStatusProof, false);
-    setIsModalOpen(false);
-    setIsTransacting(true);
-    console.log({transaction});
-    const receipt = await transaction.wait();
-    console.log({receipt});
-    if (receipt?.status == 1) {
+      const transaction = await contract?.write?.summon(
+        basedStatusProof,
+        false
+      );
+      setIsModalOpen(false);
+      setIsTransacting(true);
+      console.log({ transaction });
+      const receipt = await transaction.wait();
+      console.log({ receipt });
+      if (receipt?.status == 1) {
+        setIsTransacting(false);
+        setIsSummoned(true);
+      }
+    } catch (error) {
+      console.log({ error });
       setIsTransacting(false);
-      setIsSummoned(true);
+      setIsFailed(true);
     }
-  } catch (error) {
-    console.log({error});
-    setIsTransacting(false);
-    setIsFailed(true);
-  }
-    // const something = await signer.sendTransaction(transaction);
-    // console.log({something});
-    // const receipt = await transaction.wait();
-    // console.log({receipt});
-    // const txResponse = await transaction
-    //   .send("eth_requestAccounts")
-    //   .once("transactionHash", (hash) => {
-    //     console.log({ hash });
-    //     setIsModalOpen(false);
-    //     setIsTransacting(true);
-    //   })
-    //   .once("confirmation", async () => {
-    //     setIsTransacting(false);
-    //     setIsSummoned(true);
-    //   })
-    //   .once("error", (error) => {
-    //     setIsTransacting(false);
-    //     console.log(error);
-    //     setIsFailed(true);
-    //   })
-    //   .then(async (receipt) => {
-    //     const tokenID = receipt?.events?.Transfer?.returnValues?.tokenId;
-    //     setSummonedNFT({
-    //       source: `https://ghlsprereveal.s3.amazonaws.com/images/Shallow_Grave.png`,
-    //       index: tokenID,
-    //     });
-    //   });
-    // console.log({ txResponse });
   };
 
   const summon = async () => {
     const transaction = contract?.write?.summon(summonerStatusProof, true);
-    // const something = await signer.sendTransaction(transaction);
     const receipt = transaction.wait();
-    console.log({receipt});
-    console.log({something});
-    // const txResponse = await transaction
-    //   .send("eth_requestAccounts")
-    //   .once("transactionHash", (hash) => {
-    //     console.log({ hash });
-    //     setIsModalOpen(false);
-    //     setIsTransacting(true);
-    //   })
-    //   .once("confirmation", async () => {
-    //     setIsTransacting(false);
-    //     setIsSummoned(true);
-    //     setHasRebased(true);
-    //   })
-    //   .once("error", (error) => {
-    //     setIsTransacting(false);
-    //     console.log(error);
-    //     setIsFailed(true);
-    //   })
-    //   .then(async (receipt) => {
-    //     const tokenID = receipt?.events?.Transfer?.returnValues?.tokenId;
-    //     setSummonedNFT({
-    //       source: `https://ghlsprereveal.s3.amazonaws.com/images/Shallow_Grave.png`,
-    //       index: tokenID,
-    //     });
-    //   });
-    // console.log({ txResponse });
+    console.log({ receipt });
+    console.log({ something });
   };
-
 
   async function getBasedStatus(addressToCheck) {
     const stringedAddress = JSON.stringify({ address: addressToCheck });
@@ -142,9 +85,7 @@ export default function Home() {
   useEffect(() => {
     async function checkRebaseRedemption() {
       if (address !== null && contract !== null) {
-        setHasRebased(
-          await contract?.read?.REBASERedemption2(address)
-        );
+        setHasRebased(await contract?.read?.REBASERedemption2(address));
       }
     }
     checkRebaseRedemption();
@@ -168,16 +109,16 @@ export default function Home() {
   }, [address]);
 
   useEffect(() => {
-    async function getContract() { 
-    if (!!provider && !!address) {
-      let network = await provider.getNetwork();
-      let tempContract = BGContract(
-        network.chainId,
-        address,
-        provider,
-        signer,
-      );
-      setContract(tempContract);
+    async function getContract() {
+      if (!!provider && !!address) {
+        let network = await provider.getNetwork();
+        let tempContract = BGContract(
+          network.chainId,
+          address,
+          provider,
+          signer
+        );
+        setContract(tempContract);
       }
     }
     getContract();
@@ -191,7 +132,7 @@ export default function Home() {
         const tempIsMintable = ghouldata.isMintable;
         setIsMintable(tempIsMintable);
         setTotalSupply(tempSupply);
-        console.log({tempSupply});
+        console.log({ tempSupply });
       }
       getSupply();
     }
@@ -447,46 +388,51 @@ export default function Home() {
                     draggable="false"
                   />
                 </Box>
-                {isMintable && (<>
-                <Box>
-                <Box
-                  as={motion.div}
-                  animation={glowAnimation}
-                  className={"glowFlame"}
-                  sx={{
-                    position: `absolute`,
-                    opacity: `0.75`,
-                    transition: `0.5s`,
-                    width: `400px`,
-                  }}
-                >
-                  <img src="/images/svg/glow.svg" alt="" />
-                </Box>
-                <Box
-                  as={motion.div}
-                  animation={bobAnimation}
-                  className={"glowRock"}
-                  sx={{
-                    position: `absolute`,
-                    opacity: `0.75`,
-                    transition: `0.25s`,
-                    transform: `translateX(-50%)`,
-                  }}
-                  _hover={{
-                    opacity: `1`,
-                    cursor: `url(images/png/cursorhover.png), auto`,
-                  }}
-                >
-                  <img
-                    src="/images/svg/flame.svg"
-                    alt=""
-                    style={{ backgroundColor: `transparent`, width: `5rem` }}
-                    draggable="false"
-                    onClick={() => setIsModalOpen(true)}
-                  />
-                </Box>
-                </Box>
-                </>)}
+                {isMintable && (
+                  <>
+                    <Box>
+                      <Box
+                        as={motion.div}
+                        animation={glowAnimation}
+                        className={"glowFlame"}
+                        sx={{
+                          position: `absolute`,
+                          opacity: `0.75`,
+                          transition: `0.5s`,
+                          width: `400px`,
+                        }}
+                      >
+                        <img src="/images/svg/glow.svg" alt="" />
+                      </Box>
+                      <Box
+                        as={motion.div}
+                        animation={bobAnimation}
+                        className={"glowRock"}
+                        sx={{
+                          position: `absolute`,
+                          opacity: `0.75`,
+                          transition: `0.25s`,
+                          transform: `translateX(-50%)`,
+                        }}
+                        _hover={{
+                          opacity: `1`,
+                          cursor: `url(images/png/cursorhover.png), auto`,
+                        }}
+                      >
+                        <img
+                          src="/images/svg/flame.svg"
+                          alt=""
+                          style={{
+                            backgroundColor: `transparent`,
+                            width: `5rem`,
+                          }}
+                          draggable="false"
+                          onClick={() => setIsModalOpen(true)}
+                        />
+                      </Box>
+                    </Box>
+                  </>
+                )}
               </Box>
             </>
           )}
@@ -732,7 +678,12 @@ export default function Home() {
                     }}
                   >
                     <Heading
-                      sx={{ lineHeight: `1`, margin: `1ex`, fontSize: `48px`,fontFamily: `'lores-12-narrow', monospace`, }}
+                      sx={{
+                        lineHeight: `1`,
+                        margin: `1ex`,
+                        fontSize: `48px`,
+                        fontFamily: `'lores-12-narrow', monospace`,
+                      }}
                     >
                       Summon Successful
                     </Heading>
@@ -744,7 +695,11 @@ export default function Home() {
                         />
                       </Box>
                     )}
-                    <Heading sx={{fontFamily: `'lores-12-narrow', monospace`,}}>Your Ghoul Is Rising...</Heading>
+                    <Heading
+                      sx={{ fontFamily: `'lores-12-narrow', monospace` }}
+                    >
+                      Your Ghoul Is Rising...
+                    </Heading>
                     <br />
                     <Box
                       sx={{
@@ -778,9 +733,14 @@ export default function Home() {
                   alignItems: `center`,
                 }}
               >
-                <Heading sx={{fontFamily: `'lores-12-narrow', monospace`,}}>Summon Failed</Heading>
+                <Heading sx={{ fontFamily: `'lores-12-narrow', monospace` }}>
+                  Summon Failed
+                </Heading>
                 <br />
-                <img src={'https://ripv1ghls.s3.amazonaws.com/baseimages/1.png'} alt="All your friends are dead." />
+                <img
+                  src={"https://ripv1ghls.s3.amazonaws.com/baseimages/1.png"}
+                  alt="All your friends are dead."
+                />
                 <br />
                 <Box
                   sx={{
@@ -800,15 +760,53 @@ export default function Home() {
         </>
       )}
       {viewportWidth < 1100 && (
-        <Heading
-          sx={{
-            color: `white`,
-            fontFamily: `lores-12-narrow, monospace`,
-            padding: `1rem`,
-          }}
-        >
-          Get on your desktop, summoner.
-        </Heading>
+        <>
+          <Heading
+            sx={{
+              color: `white`,
+              fontFamily: `lores-12-narrow, monospace`,
+              padding: `1rem`,
+            }}
+          >
+            Welcome, summoner.
+          </Heading>
+          <Text
+            sx={{
+              color: `white`,
+              fontFamily: `lores-12-narrow, monospace`,
+              padding: `1rem`,
+            }}
+          >
+            What would you like to inspect today?
+          </Text>
+          <Box
+            sx={{
+              display: `flex`,
+              flexDirection: `column`,
+              color: `white`,
+              fontFamily: `lores-12-narrow, monospace`,
+              padding: `1rem`,
+              gap: `1rem`,
+            }}
+          >
+            <a href="https://sudoswap.xyz/#/browse/activity/0xeF1a89cbfAbE59397FfdA11Fc5DF293E9bC5Db90" target="_blank" rel="noreferrer">
+              <Text>&gt; Sudo Swap Configuration</Text>
+            </a>
+            <a
+              href="https://twitter.com/BASEDghouls"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Text>&gt; Public Communications Archive</Text>
+            </a>
+            <a href="https://t.me/basedghouls" target="_blank" rel="noreferrer">
+              <Text>&gt; Summoner's Discussion Chamber</Text>
+            </a>
+            <a href="/achievements">
+              <Text>&gt; Summoner Hall of Fame</Text>
+            </a>
+          </Box>
+        </>
       )}
     </Box>
   );
