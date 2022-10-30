@@ -83,7 +83,7 @@ export default function getValidAchievements(indices) {
     achievements["Let Me Be Frank"] = checkFrank(indices);
     achievements["Hopeless Romantic"] = checkHopelessRomantic(indices);
     achievements["Everyone Looks Tall & Fit"] = checkTallAndFit(indices);
-    achievements["Destined for Greatness"] = checkGreatness(indices);
+    // achievements["Destined for Greatness"] = checkGreatness(indices);
     achievements["Ugly and Leaning Into It"] = checkUgly(indices);
     achievements["Secret Sarge"] = checkSecretSarge(indices);
     achievements["It's 4:20 Somewhere"] = check420(indices);
