@@ -1,9 +1,16 @@
 import { useState } from "react";
+import { ethers } from "ethers";
+import { useEthers } from "../contexts/EthersProviderContext";
+import { BasedChievesABI } from "../utils/abis/BasedChievesABI";
+
 export default function Achievement(props) {
+  const {address, provider} = useEthers();
   const chieve = props.chieve;
+  const [tokenHeld, setTokenHeld] = useState(false);
   let imgSrc = null;
   let chieveIndex = null;
-
+  let read = new ethers.Contract("0x04d193345A8BA01D3B77D056743E3827e4acCfDD", BasedChievesABI, provider);
+  let holdsToken = false;
   switch (chieve) {
     case "60 Teraflops":
       imgSrc = "/images/achievements/60teraflop.jpg";
@@ -214,6 +221,14 @@ export default function Achievement(props) {
       imgSrc = null;
       break;
   }
+  async function getBalances() {
+    const balance = await read.balanceOf(address, chieveIndex);
+    if (balance > 0) {
+      setTokenHeld(true);
+    }
+  }
+  getBalances();
+
   let style = {
     margin: `1rem auto`,
     width: `400px`,
@@ -224,10 +239,15 @@ export default function Achievement(props) {
   if (props.state == "true") {
     imgStyle.opacity = `1`;
   }
+  if (tokenHeld == true) {
+    style.border = "2px solid purple";
+    style.backgroundColor = "purple";
+    imgStyle.opacity = "0.5";
+  }
 
   return (
     <>
-      {props.state == "true" && (
+      {props.state == "true" && !tokenHeld && (
         <>
           <div
             style={style}
@@ -240,6 +260,15 @@ export default function Achievement(props) {
         </>
       )}
       {props.state == "false" && (
+        <>
+          <div style={style}>
+            {imgSrc !== null && (
+              <img src={imgSrc} style={imgStyle} alt={chieve} />
+            )}
+          </div>
+        </>
+      )}
+      {props.state == "true" && tokenHeld && (
         <>
           <div style={style}>
             {imgSrc !== null && (
