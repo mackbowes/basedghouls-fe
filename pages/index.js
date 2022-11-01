@@ -363,6 +363,32 @@ export default function Home() {
                       />
                     </a>
                   </Box>
+                  <Box
+                    sx={{
+                      opacity: `0.75`,
+                      transition: `0.25s`,
+                    }}
+                    _hover={{
+                      opacity: `1`,
+                      cursor: `url(images/png/cursorhover.png), auto`,
+                    }}
+                  >
+                    <Link
+                      href="/achievements"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        cursor: `url(images/png/cursorhover.png), auto`,
+                      }}
+                    >
+                      <img
+                        src="/images/blank.png"
+                        alt=""
+                        style={{ backgroundColor: `transparent`, maxHeight: `48px`}}
+                        draggable="false"
+                      />
+                    </Link>
+                  </Box>
                 </Box>
                 <Box
                   sx={{
