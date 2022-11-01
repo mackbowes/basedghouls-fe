@@ -33,7 +33,7 @@ export default function Achievement(props) {
       chieveIndex = 5;
       break;
     case "Based the Rainbow":
-      imgSrc = "/images/achievements/BasedTheRainbow.png";
+      imgSrc = "/images/achievements/basedTheRainbow.png";
       chieveIndex = 6;
       break;
     case "Based Van Helsing":
@@ -41,7 +41,7 @@ export default function Achievement(props) {
       chieveIndex = 7;
       break;
     case "Blue Man Group":
-      imgSrc = "/images/achievements/bluemangroup.png";
+      imgSrc = "/images/achievements/blueManGroup.png";
       chieveIndex = 8;
       break;
     case "By Any Other Name":
@@ -185,7 +185,7 @@ export default function Achievement(props) {
       chieveIndex = 43;
       break;
     case "The Pale King":
-      imgSrc = "/images/achievements/paleking.png";
+      imgSrc = "/images/achievements/paleKing.png";
       chieveIndex = 44;
       break;
     case "Toxic Avenger":
