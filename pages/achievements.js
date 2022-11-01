@@ -1,4 +1,4 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, Text, Image } from "@chakra-ui/react";
 import { useEthers } from "../contexts/EthersProviderContext";
 import { BGContract } from "../utils/contract";
 import { useEffect, useState } from "react";
@@ -186,17 +186,10 @@ export default function Achievements(props) {
         paddingBottom: `20vh`,
       }}
     >
-      <Heading
-        sx={{
-          color: `white`,
-          fontFamily: `lores-12-narrow, monospace`,
-          padding: `1rem`,
-          fontSize: `5vw`,
-          textAlign: `center`,
-        }}
-      >
-        Summoner Hall of Fame
-      </Heading>
+      <Image
+        sx={{ margin: `2rem auto` }}
+        src="/images/svg/HallofAchievement.svg"
+      />
       <Text
         sx={{
           color: `white`,
@@ -207,11 +200,12 @@ export default function Achievements(props) {
           fontSize: `1.5vw`,
         }}
       >
-        In recognition of the sacrifices made by all summoners, the anciene
-        regime has erected this commemorative hall. <br />
-        Summoners that have made great strides in practicing and promoting the
-        faith may peruse all awards prepared by the Council, as well as directly
-        apply for receiving such rewards in this hallowed hall.
+        In recognition of the occult sacrifices made by all summoners, the inner
+        circle has erected this commemorative hall.
+        <br /> Summoners that have made great strides in practicing and
+        promoting the technology of financial power may peruse all of the
+        prepared awards, and may directly apply for receiving such rewards in
+        this hallowed hall.
       </Text>
       {!address && (
         <Box
