@@ -4,12 +4,16 @@ import { useEthers } from "../contexts/EthersProviderContext";
 import { BasedChievesABI } from "../utils/abis/BasedChievesABI";
 
 export default function Achievement(props) {
-  const {address, provider} = useEthers();
+  const { address, provider } = useEthers();
   const chieve = props.chieve;
   const [tokenHeld, setTokenHeld] = useState(false);
   let imgSrc = null;
   let chieveIndex = null;
-  let read = new ethers.Contract("0x04d193345A8BA01D3B77D056743E3827e4acCfDD", BasedChievesABI, provider);
+  let read = new ethers.Contract(
+    "0x04d193345A8BA01D3B77D056743E3827e4acCfDD",
+    BasedChievesABI,
+    provider
+  );
   let holdsToken = false;
   switch (chieve) {
     case "60 Teraflops":
@@ -237,6 +241,9 @@ export default function Achievement(props) {
   let imgStyle = { opacity: `0.5` };
   if (props.state == "true") {
     imgStyle.opacity = `1`;
+  }
+  if (props.state == "true" && tokenHeld !== true) {
+    imgStyle.cursor = `url(images/png/cursorhover.png), auto`;
   }
   if (tokenHeld == true) {
     style.border = "2px solid purple";
