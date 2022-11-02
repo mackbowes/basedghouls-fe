@@ -243,7 +243,7 @@ export default function Achievement(props) {
     imgStyle.opacity = `1`;
   }
   if (props.state == "true" && tokenHeld !== true) {
-    imgStyle.cursor = `url(images/png/cursorhover.png), auto`;
+    imgStyle.cursor = `url(/images/png/cursorhover.png), auto`;
   }
   if (tokenHeld == true) {
     style.border = "2px solid purple";
