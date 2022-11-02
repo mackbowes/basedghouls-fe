@@ -18,7 +18,7 @@ export default function checkBasedDevelopmentCycle(indices) {
             hasBasedLoanGhouls = true;
         }
     });
-    if (basedClassicGhouls == true && moonbasedGhouls == true && basedLoanGhouls == true) {
+    if (hasBasedClassic == true && hasMoonbasedGhouls == true && hasBasedLoanGhouls == true) {
         isBasedDevelopmentCycle = true;
     }
     return isBasedDevelopmentCycle;
